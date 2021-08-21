@@ -47,7 +47,6 @@ function display(universities){
         var address = universities[i].Address; // Address attribute​
         var phone = universities[i].PhoneNumber; //PhoneNumber attribute​
 
-
         var r = table.insertRow();​
         r.insertCell(-1).innerHTML = name;​
         r.insertCell(-1).innerHTML = address;​
