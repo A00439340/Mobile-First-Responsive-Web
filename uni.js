@@ -9,10 +9,10 @@ function saveInformation () {​
             "Address": $("#address").val(),​
             "PhoneNumber": $("#phone").val()​
         };​
-​        $.post(SERVER_URL + "/saveUniversity", newObj,function(result){
+​        $.post(SERVER_URL + '/saveUniversity', newObj,function(result){
             alert(result);
         }).fail(function(err){
-            alert("error:"+err.responseText);
+            alert("error:"+ err.responseText);
         });
 
     }//end if validateData()​
@@ -22,100 +22,54 @@ function saveInformation () {​
 
 function searchInfo () {​
 
+    //first grab the name of the university​
+    
+    var key = $('#search').val();​
+    if(key == ""){
+        alert("Please enter the university name");
+    }
+    $.post(SERVER_URL+'/getUniversity', key, function(data){
+        if(data.length>0){
+            display(data);
+        }
+        else{
+            alert("there is not university with this name");
+        }
+
+    }).fail(function(err){
+        alert("error:"+ err.responseText);
+    })
     ​
     
-                //first grab the name of the university​
-    
-                var key = $('#searchKey').val();​
-    
-    ​
-    
-                /**​
-    
-                 * Implement the rest​
-    
-                 * ​
-    
-                 * 1) "post" the key to the server​
-    
-                 * 2) Obtain the returned university object​
-    
-                 * 3) Extract the attribute values​
-    
-                 * 4) Fill the corresponding input fields​
-    
-                 * 5) Alert any errors to the user.​
-    
-                 */​
-    
-    ​
-    
-     }//end function
+}//end function
+
+function deleteInformation () {​
+
+    //first grab the name of the university​
+
+    var key = $('#name').val();
+    $.post(SERVER_URL+"/deleteUniversity", key, function(data){
+        alert(data);
+    })​.fail(function(err){
+        alert("error"+err.responseText);
+    });
+             ​  
+}//end function
 
 
-     function deleteInformation () {​
+$('#displayButton').click(​
+    function () {​
+        var universities = [];//place holder​​
+    }//end function​
 
-        ​
-        
-                    //first grab the name of the university​
-        
-                    var key = $('#searchKey').val();​
-        
-        ​
-        
-                    /**​
-        
-                     * Implement the rest​
-        
-                     * ​
-        
-                     * 1) "post" the key to the server​
-        
-                     * 2) Get the returned university object (deleted object)​
-        
-                     * 3) Tell the user if the deletion succeeded​
-        
-                     * 4) Alert any errors to the user.​
-        
-                     */​
-        
-        ​
-        
-                }//end function
-
-
-                $('#displayButton').click(​
-
-                    function () {​
-            
-            ​
-            
-                        var universities = [];//place holder​
-            
-            ​
-            
-                        /**​
-            
-                         * Implement the rest​
-            
-                         * ​
-            
-                         * 1) request the server to return the university object "array"​
-            
-                         * 2) If the array is empty display proper message​
-            
-                         * 3) Alert any errors to the user.​
-            
-                         */​
-            
-            ​
-            
-                    }//end function​
-            
-            );
+);
 
 
 function displayRecords() {
-
+    $.post(SERVER_URL+'/getAllUniversities', function(){
+        display(data);
+    }).fail(function(err){
+        alert("error"+err.responseText);
+    });
 
 }
